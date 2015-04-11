@@ -50,6 +50,7 @@ public class AudioReader {
     	
     	System.out.println();
     	System.out.println("Total number of bytes read: " + count);
+    	System.out.println("Mean values: " + meanVals);
     	ImagePrinter ip = new ImagePrinter(bytes);
     	
 		return bytes;
@@ -64,7 +65,7 @@ public class AudioReader {
     {
     	try 
     	{
-			AudioReader ar = new AudioReader(new File("computer_blow.wav"));
+			AudioReader ar = new AudioReader(new File("sequential_spaced_beeps.wav"));
 			ar.read();	
 		} catch (UnsupportedAudioFileException | IOException e) {
 			e.printStackTrace();
