@@ -14,7 +14,12 @@ public class AudioReader{
 	private AudioInputStream audioInputStream;
     private AudioFormat format;
 	
+<<<<<<< HEAD
     public AudioReader(File file) throws UnsupportedAudioFileException, IOException{
+=======
+    //testing by adding a comment - Brent Wang
+    public  AudioReader(File file) throws UnsupportedAudioFileException, IOException{
+>>>>>>> origin/master
         audioInputStream = AudioSystem.getAudioInputStream(file);
         format = audioInputStream.getFormat();
     }
