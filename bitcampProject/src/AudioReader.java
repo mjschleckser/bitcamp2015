@@ -9,12 +9,12 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 // some of this is taken from:
 // http://web.archive.org/web/20120531113946/http://www.builogic.com/java/javasound-read-write.html
 
-public class AudioReader{
+public class AudioReader {
 	
 	private AudioInputStream audioInputStream;
     private AudioFormat format;
 	
-    public  AudioReader(File file) throws UnsupportedAudioFileException, IOException{
+    public AudioReader(File file) throws UnsupportedAudioFileException, IOException{
         audioInputStream = AudioSystem.getAudioInputStream(file);
         format = audioInputStream.getFormat();
     }
