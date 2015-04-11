@@ -24,42 +24,39 @@ public class AudioReader {
         return format;
     }
     
-    public void read() throws IOException{
+    public void read() throws IOException
+    {
     	int max_bytes = audioInputStream.available();
     	byte[] bytes = new byte[max_bytes];
     	audioInputStream.read(bytes, 0, max_bytes);
     	
     	int count = 0;
-    	for(int i = 0; i < bytes.length; i++){
-    		System.out.print(bytes[i] + " ");
-    		if(i%10 == 0) System.out.println();
+    	for(int i = 0; i < bytes.length; i++)
+    	{
+    		System.out.print(bytes[i] + "\t");
+    		if(i%10 == 0) 
+    			System.out.println();
     		
     		count++;
     	}
     	System.out.println();
     	System.out.println("Total number of bytes read: " + count);
-    	
-    	return;
+    	ImagePrinter ip = new ImagePrinter(bytes);
     }
     
-    public void close() throws IOException{
+    public void close() throws IOException
+    {
     	audioInputStream.close();
-    	return;
     }
     
-    public static void main(String[] args){
-    	try {
+    public static void main(String[] args)
+    {
+    	try 
+    	{
 			AudioReader ar = new AudioReader(new File("computer_blow.wav"));
-			
-			ar.read();
-			
-			
+			ar.read();	
 		} catch (UnsupportedAudioFileException | IOException e) {
 			e.printStackTrace();
 		}
-    	
-    	
     }
-	
-		
 }
