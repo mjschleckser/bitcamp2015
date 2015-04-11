@@ -24,22 +24,32 @@ public class AudioReader {
         return format;
     }
     
-    public void read() throws IOException{
+    public byte[] read() throws IOException{
+    	/* Bytes are from -128 to 127 */
+    	
     	int max_bytes = audioInputStream.available();
     	byte[] bytes = new byte[max_bytes];
     	audioInputStream.read(bytes, 0, max_bytes);
     	
     	int count = 0;
     	for(int i = 0; i < bytes.length; i++){
-    		System.out.print(bytes[i] + " ");
-    		if(i%10 == 0) System.out.println();
+    		// bytes[i] = (byte) (bytes[i] + 128);
+    		String s = "" + bytes[i];
     		
+    		if(bytes[i] > 0) s = " " + s;		// add a space in the front to positive nums
+    		if(bytes[i]/10 == 0) s += "   ";	// add 3 spaces to 0-9
+    		else if(bytes[i]/100 == 0) s += "  ";	// add 2 spaces to 10-99
+    		else s+=" ";						// add 1 space to 100+
+    		
+    		System.out.print(s);
+    		
+    		if((i+1)%30 == 0) System.out.println();
     		count++;
     	}
     	System.out.println();
     	System.out.println("Total number of bytes read: " + count);
     	
-    	return;
+    	return bytes;
     }
     
     public void close() throws IOException{
