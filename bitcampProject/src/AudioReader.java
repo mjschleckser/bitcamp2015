@@ -24,11 +24,11 @@ public class AudioReader {
         return format;
     }
     
+    
     public byte[] read() throws IOException{
     	/* Bytes are from -128 to 127 */
     	int maxBytes = audioInputStream.available();
-    	int count = 0;
-    	long mean = 0;
+    	long mean = 0, count = 0;
     	
     	byte[] bytes = new byte[maxBytes];
     	ArrayList<Long> meanVals = new ArrayList<Long>();
