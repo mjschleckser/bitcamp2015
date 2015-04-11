@@ -43,6 +43,7 @@ public class AudioReader {
     		
     		mean += Math.abs((long)(bytes[i]));
     		
+    		// calculates the mean of every 1000 bytes
     		if((i+1)%10 == 0) System.out.println();
     		if((i+1)%1000 == 0){
     			mean /= 1000;
