@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -25,14 +26,33 @@ public class AudioReader {
     
     public void read() throws IOException{
     	int max_bytes = audioInputStream.available();
+    	byte[] bytes = new byte[max_bytes];
+    	audioInputStream.read(bytes, 0, max_bytes);
     	
-    	
+    	for(int i = 0; i < bytes.length; i++){
+    		System.out.println(bytes[i]);
+    	}
+    
     	return;
     }
     
     public void close() throws IOException{
     	audioInputStream.close();
     	return;
+    }
+    
+    public static void main(String[] args){
+    	try {
+			AudioReader ar = new AudioReader(new File("Yakety_Sax.mp3"));
+			
+			ar.read();
+			
+			
+		} catch (UnsupportedAudioFileException | IOException e) {
+			e.printStackTrace();
+		}
+    	
+    	
     }
 	
 		
