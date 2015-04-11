@@ -34,16 +34,12 @@ public class AudioReader {
     	int count = 0;
     	for(int i = 0; i < bytes.length; i++){
     		// bytes[i] = (byte) (bytes[i] + 128);
-    		String s = "" + bytes[i];
-    		
-    		if(bytes[i] > 0) s = " " + s;		// add a space in the front to positive nums
-    		if(bytes[i]/10 == 0) s += "   ";	// add 3 spaces to 0-9
-    		else if(bytes[i]/100 == 0) s += "  ";	// add 2 spaces to 10-99
-    		else s+=" ";						// add 1 space to 100+
+    		String s = bytes[i] + "\t";
+    		if(bytes[i] >= 0) s = " " + s;		// add a space in the front to positive nums
     		
     		System.out.print(s);
     		
-    		if((i+1)%30 == 0) System.out.println();
+    		if((i+1)%10 == 0) System.out.println();
     		count++;
     	}
     	System.out.println();
@@ -62,6 +58,10 @@ public class AudioReader {
 			AudioReader ar = new AudioReader(new File("computer_blow.wav"));
 			
 			ar.read();
+			
+			AudioReader ab = new AudioReader(new File("sequential_spaced_beeps.wav"));
+			
+			ab.read();
 			
 			
 		} catch (UnsupportedAudioFileException | IOException e) {
