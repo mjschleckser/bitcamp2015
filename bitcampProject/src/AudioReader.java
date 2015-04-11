@@ -29,11 +29,16 @@ public class AudioReader {
     	byte[] bytes = new byte[max_bytes];
     	audioInputStream.read(bytes, 0, max_bytes);
     	
+    	int count = 0;
     	for(int i = 0; i < bytes.length; i++){
     		System.out.print(bytes[i] + " ");
     		if(i%10 == 0) System.out.println();
+    		
+    		count++;
     	}
-    
+    	System.out.println();
+    	System.out.println("Total number of bytes read: " + count);
+    	
     	return;
     }
     
