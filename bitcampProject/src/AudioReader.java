@@ -24,21 +24,40 @@ public class AudioReader {
         return format;
     }
 
-    public ArrayList<Integer> read() throws IOException{
+    public ArrayList<SamplePoint> read() throws IOException{
     	/* Bytes are from -128 to 127 */
     	int maxBytes = audioInputStream.available();
     	long mean = 0, count = 0;
     	byte[] bytes = new byte[maxBytes];
-    	ArrayList<Integer> meanVals = new ArrayList<Integer>();
+
+    	ArrayList<SamplePoint> points = new ArrayList<SamplePoint>();
     	
     	audioInputStream.read(bytes, 0, maxBytes);
     	
+    	int localMinIndex = -1, localMaxIndex = -1;
+    	int localMin = 127, localMax = 0;
     	for(int i = 0; i < bytes.length; i++)
     	{
+    		if(bytes[i] < localMin ){
+    			localMinIndex = i;
+    			localMin = bytes[i];
+    		} 
+    		if(bytes[i] > localMax ){
+    			localMaxIndex = i;
+    			localMax = bytes[i];
+    		}
+    		
     		mean += Math.abs(bytes[i]);
-    		if((i+1)%25 == 0){
-    			mean /= 25;
-    			meanVals.add((int) mean);
+    		if((i+1)%50 == 0){
+    			// Put into the ArrayList
+    			mean /= 50;
+    			SamplePoint sp = new SamplePoint();
+    			sp.wavelength = (Math.abs(localMaxIndex - localMinIndex));
+    			sp.amplitude = (int)( mean );
+    			
+    			// Reset values
+    			localMin = 127;
+    			localMax = 0;
     			mean = 0;
     		}
     				
@@ -47,10 +66,10 @@ public class AudioReader {
     	
     	System.out.println();
     	System.out.println("Total number of bytes read: " + count);
-    	System.out.println("Mean values: " + meanVals);
-    	ImagePrinter ip = new ImagePrinter(meanVals);
+
+    	ImagePrinter ip = new ImagePrinter(points);
     	
-		return meanVals;
+		return points;
     }
     
     public void close() throws IOException

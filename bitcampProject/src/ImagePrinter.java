@@ -7,12 +7,14 @@ import javax.swing.JFrame;
 
 public class ImagePrinter{
 	
-	public ImagePrinter(ArrayList<Integer> bytes){
+	public ImagePrinter(ArrayList<SamplePoint> points){
 
 		ArrayList<Color> pixels = new ArrayList<Color>();
 		
-		for(int i = 0; i < bytes.size()-3; i+=3)
-			pixels.add(new Color(bytes.get(i), bytes.get(i+1), bytes.get(i+2)));
+		for(int i = 0; i < points.size()-3; i+=3)
+			pixels.add(new Color(points.get(i).amplitude,
+					points.get(i+1).amplitude, 
+					points.get(i+2).amplitude));
 		
         JFrame frame = new JFrame("Draw");
         
