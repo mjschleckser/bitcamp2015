@@ -36,8 +36,6 @@ public class AudioReader {
     	for(int i = 0; i < bytes.length; i++)
     	{
     		System.out.print(bytes[i] + "\t");
-    		if(i%10 == 0) 
-    			System.out.println();
     		
     		// calculates the mean of every 1000 bytes
     		if((i+1)%10 == 0) System.out.println();
