@@ -54,6 +54,7 @@ public class AudioReader {
     			SamplePoint sp = new SamplePoint();
     			sp.wavelength = (Math.abs(localMaxIndex - localMinIndex));
     			sp.amplitude = (int)( mean );
+    			points.add(sp);
     			
     			// Reset values
     			localMin = 127;
