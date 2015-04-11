@@ -30,7 +30,8 @@ public class AudioReader {
     	audioInputStream.read(bytes, 0, max_bytes);
     	
     	for(int i = 0; i < bytes.length; i++){
-    		System.out.println(bytes[i]);
+    		System.out.print(bytes[i] + " ");
+    		if(i%10 == 0) System.out.println();
     	}
     
     	return;
