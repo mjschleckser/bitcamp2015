@@ -23,32 +23,22 @@ public class AudioReader {
     public AudioFormat getFormat() {
         return format;
     }
-    
-<<<<<<< HEAD
-    public void read() throws IOException
-    {
-    	int max_bytes = audioInputStream.available();
-    	byte[] bytes = new byte[max_bytes];
-    	audioInputStream.read(bytes, 0, max_bytes);
-=======
-    
+
     public byte[] read() throws IOException{
     	/* Bytes are from -128 to 127 */
     	int maxBytes = audioInputStream.available();
     	long mean = 0, count = 0;
-    	
     	byte[] bytes = new byte[maxBytes];
     	ArrayList<Long> meanVals = new ArrayList<Long>();
->>>>>>> a698b65743d14b190660eddeb3f2b665e0f7959f
     	
-    	int count = 0;
+    	audioInputStream.read(bytes, 0, maxBytes);
+    	
     	for(int i = 0; i < bytes.length; i++)
     	{
     		System.out.print(bytes[i] + "\t");
     		if(i%10 == 0) 
     			System.out.println();
     		
-<<<<<<< HEAD
     		// calculates the mean of every 1000 bytes
     		if((i+1)%10 == 0) System.out.println();
     		if((i+1)%1000 == 0){
@@ -57,13 +47,14 @@ public class AudioReader {
     			mean = 0;
     		}
     				
-=======
->>>>>>> origin/master
     		count++;
     	}
+    	
     	System.out.println();
     	System.out.println("Total number of bytes read: " + count);
     	ImagePrinter ip = new ImagePrinter(bytes);
+    	
+		return bytes;
     }
     
     public void close() throws IOException
