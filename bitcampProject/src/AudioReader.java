@@ -26,24 +26,36 @@ public class AudioReader {
     
     public byte[] read() throws IOException{
     	/* Bytes are from -128 to 127 */
-    	
-    	int max_bytes = audioInputStream.available();
-    	byte[] bytes = new byte[max_bytes];
-    	audioInputStream.read(bytes, 0, max_bytes);
-    	
+    	int maxBytes = audioInputStream.available();
     	int count = 0;
+    	long mean = 0;
+    	
+    	byte[] bytes = new byte[maxBytes];
+    	ArrayList<Long> meanVals = new ArrayList<Long>();
+    	
+    	audioInputStream.read(bytes, 0, maxBytes);
+    	    	
     	for(int i = 0; i < bytes.length; i++){
-    		// bytes[i] = (byte) (bytes[i] + 128);
     		String s = bytes[i] + "\t";
     		if(bytes[i] >= 0) s = " " + s;		// add a space in the front to positive nums
     		
     		System.out.print(s);
     		
+    		mean += Math.abs((long)(bytes[i]));
+    		
     		if((i+1)%10 == 0) System.out.println();
+    		if((i+1)%1000 == 0){
+    			mean /= 1000;
+    			meanVals.add(mean);
+    			mean = 0;
+    		}
+    				
     		count++;
     	}
     	System.out.println();
     	System.out.println("Total number of bytes read: " + count);
+    	
+    	System.out.println(meanVals);
     	
     	return bytes;
     }
