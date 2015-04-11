@@ -7,25 +7,19 @@ import javax.swing.JFrame;
 
 public class ImagePrinter{
 	
-	public ImagePrinter(byte[] bytes){
-		int[] colors = new int[bytes.length];
-		
-		for(int i = 0; i < bytes.length-3; i++)
-			if(bytes[i] <= 0)
-				colors[i] = Math.abs(new Integer(bytes[i]));
-			else
-				colors[i] = new Integer(bytes[i]);
-		
+	public ImagePrinter(ArrayList<Integer> bytes){
+
 		ArrayList<Color> pixels = new ArrayList<Color>();
 		
-		for(int i = 0; i < bytes.length-3; i+=3)
-			pixels.add(new Color(colors[i], colors[i+1], colors[i+2]));
+		for(int i = 0; i < bytes.size()-3; i+=3)
+			pixels.add(new Color(bytes.get(i), bytes.get(i+1), bytes.get(i+2)));
 		
         JFrame frame = new JFrame("Draw");
         
-        int len = 300; //(int) Math.sqrt(pixels.size());
-        DrawPane panel = new DrawPane(len, len, pixels);
-
+        int len = 1; //(int) Math.sqrt(pixels.size());
+        //DrawPane panel = new DrawPane(len, len, pixels);
+        DrawPane panel = new DrawPane(600, 300, pixels);
+        
         frame.add(panel);
         frame.pack();
         frame.setVisible(true);
