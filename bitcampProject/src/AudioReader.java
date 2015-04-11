@@ -24,7 +24,7 @@ public class AudioReader {
         return format;
     }
 
-    public byte[] read() throws IOException{
+    public ArrayList<Long> read() throws IOException{
     	/* Bytes are from -128 to 127 */
     	int maxBytes = audioInputStream.available();
     	long mean = 0, count = 0;
@@ -36,6 +36,7 @@ public class AudioReader {
     	for(int i = 0; i < bytes.length; i++)
     	{
     		System.out.print(bytes[i] + "\t");
+    		mean += Math.abs(bytes[i]);
     		
     		// calculates the mean of every 1000 bytes
     		if((i+1)%10 == 0) System.out.println();
@@ -53,7 +54,7 @@ public class AudioReader {
     	System.out.println("Mean values: " + meanVals);
     	ImagePrinter ip = new ImagePrinter(bytes);
     	
-		return bytes;
+		return meanVals;
     }
     
     public void close() throws IOException
