@@ -43,7 +43,7 @@ public class AudioReader {
     
     public static void main(String[] args){
     	try {
-			AudioReader ar = new AudioReader(new File("Yakety_Sax.mp3"));
+			AudioReader ar = new AudioReader(new File("computer_blow.wav"));
 			
 			ar.read();
 			
