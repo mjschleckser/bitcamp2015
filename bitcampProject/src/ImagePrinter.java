@@ -11,16 +11,30 @@ public class ImagePrinter{
 
 		ArrayList<Color> pixels = new ArrayList<Color>();
 		
-		for(int i = 0; i < points.size()-3; i+=3)
-			pixels.add(new Color(points.get(i).amplitude,
-					points.get(i+1).amplitude, 
-					points.get(i+2).amplitude));
+		//The below for loop is currently being tested on RED only
+		for(int i = 0; i < points.size(); i+=1){
+			//pixels.add(new Color(bytes.get(i), bytes.get(i+1), bytes.get(i+2)));
+			float[] hsv = new float[3];
+			Color.RGBtoHSB(points.get(i).wavelength * 5, 0, 0, hsv);
+//			System.out.println("points.get(" + i + "): " + points.get(i).wavelength);
+			hsv[1] = (float)(((points.get(i).amplitude-30) * 5) * 0.01);
+//			System.out.println("hsv[0] " + i + " : " + hsv[0]);
+			if (hsv[1] > 1){
+				hsv[1] = 1;
+			} else if (hsv[1] < 0){
+				hsv[1] = 0;
+			}
+			
+			pixels.add(new Color(Color.HSBtoRGB(hsv[0], hsv[1], hsv[2])));
+//			System.out.println("hsv[0] " + i + " : " + hsv[0]);
+//			System.out.println("hsv[1] " + i + " : " + hsv[1]);
+//			System.out.println("hsv[2] " + i + " : " + hsv[2]);
+		}
+		
 		
         JFrame frame = new JFrame("Draw");
         
-        int len = 1; //(int) Math.sqrt(pixels.size());
-        //DrawPane panel = new DrawPane(len, len, pixels);
-        DrawPane panel = new DrawPane(600, 300, pixels);
+        DrawPane panel = new DrawPane(200, 200, pixels);
         
         frame.add(panel);
         frame.pack();
