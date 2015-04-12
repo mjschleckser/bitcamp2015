@@ -33,33 +33,25 @@ public class AudioReader {
     	ArrayList<SamplePoint> points = new ArrayList<SamplePoint>();
     	
     	audioInputStream.read(bytes, 0, maxBytes);
-    	
-    	int localMinIndex = -1, localMaxIndex = -1;
-    	int localMin = 127, localMax = 0;
+
+    	ArrayList<Double> fftList = new ArrayList<Double>();
     	for(int i = 0; i < bytes.length; i++)
     	{
-    		if(bytes[i] < localMin ){
-    			localMinIndex = i;
-    			localMin = bytes[i];
-    		} 
-    		if(bytes[i] > localMax ){
-    			localMaxIndex = i;
-    			localMax = bytes[i];
-    		}
-    		
+    		fftList.add((double) bytes[i]);
+    		    		
     		mean += Math.abs(bytes[i]);
     		if((i+1)%50 == 0){
     			// Put into the ArrayList
     			mean /= 50;
     			SamplePoint sp = new SamplePoint();
-    			sp.wavelength = (Math.abs(localMaxIndex - localMinIndex));
-    			sp.amplitude = (int)( mean );
+    			sp.amplitude = (int)( mean );    			
+    			sp.wavelength = -1;
+    			
     			points.add(sp);
     			
     			// Reset values
-    			localMin = 127;
-    			localMax = 0;
     			mean = 0;
+    			fftList.clear();
     		}
     				
     		count++;
