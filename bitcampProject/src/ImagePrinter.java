@@ -34,7 +34,7 @@ public class ImagePrinter{
 		
         JFrame frame = new JFrame("Draw");
         
-        DrawPane panel = new DrawPane(600, 300, pixels);
+        DrawPane panel = new DrawPane(800, 400, pixels);
         
         frame.add(panel);
         frame.pack();

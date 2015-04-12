@@ -1,3 +1,8 @@
+import java.io.File;
+import java.io.IOException;
+
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 /**
  * @author Orlando Selenu
  */
@@ -141,7 +146,27 @@ public class FFTbase {
     		}
     	}
     	
-    	System.out.println("Frequency: " + results[max_index]);
+    	System.out.println("Index: " + max_index);
+    	// Formula for frequency: 
+    	// f[i] = i * sampleRate / fftLength
+    	
+    	float sampleRate = 0;
+    	
+    	AudioReader ar;
+		try {
+			ar = new AudioReader(new File("sequential_spaced_beeps.wav"));
+			ar.read();	
+			sampleRate = ar.getSampleRate();
+		} catch (UnsupportedAudioFileException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		double frequency = max_index * sampleRate / nums.length;
+		
+		System.out.println("OUR FREQUENCY IS: " + frequency);
+		
+    	
+    	
     	
     }
 }

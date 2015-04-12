@@ -33,6 +33,7 @@ public class AudioReader {
     public ArrayList<SamplePoint> read() throws IOException{
     	/* Bytes are from -128 to 127 */
     	int maxBytes = audioInputStream.available();
+    	int bytesPerSample = 128;
     	long mean = 0, count = 0;
     	byte[] bytes = new byte[maxBytes];
 
@@ -44,14 +45,38 @@ public class AudioReader {
     	for(int i = 0; i < bytes.length; i++)
     	{
     		fftList.add((double) bytes[i]);
-    		    		
     		mean += Math.abs(bytes[i]);
-    		if((i+1)%50 == 0){
+    		
+    		if((i+1)%bytesPerSample == 0){
     			// Put into the ArrayList
-    			mean /= 50;
+    			mean /= bytesPerSample;
     			SamplePoint sp = new SamplePoint();
-    			sp.amplitude = (int)( mean );    			
-    			sp.wavelength = -1;
+    			sp.amplitude = (int)( mean );
+    			
+    			// START OF FFT BULLSHIT CODE
+    			double[] reals = new double[fftList.size()];
+    			double[] imaginaries = new double[fftList.size()];
+    			
+    			for(int iz = 0; iz < fftList.size(); iz++){
+    				reals[iz] = fftList.get(iz);
+    				imaginaries[iz] = 0;
+    			}
+    			
+    			double[] results = FFTbase.fft(reals, imaginaries, true);
+    			
+    			double max_magnitude = 0;
+    	    	int max_index = 0;
+    	    	for(int ix = 0; ix < results.length-1; ix+=2){
+    	    		if(Math.sqrt(results[ix]*results[ix] + results[ix+1]*results[ix+1]) > max_magnitude){
+    	    			max_index = ix;
+    	    			max_magnitude = Math.sqrt(results[ix]*results[ix] + results[ix+1]*results[ix+1]);
+    	    		}
+    	    	}
+    	    	
+    	    	double frequency = max_index * this.sampleRate / reals.length;
+    			// freq = wl / time
+    			sp.wavelength = (int) (frequency * bytesPerSample);
+    			// END OF FFT BULLSHIT CODE
     			
     			points.add(sp);
     			
@@ -80,7 +105,7 @@ public class AudioReader {
     {
     	try 
     	{
-			AudioReader ar = new AudioReader(new File("sequential_spaced_beeps.wav"));
+			AudioReader ar = new AudioReader(new File("anaconda.wav"));
 			ar.read();	
 		} catch (UnsupportedAudioFileException | IOException e) {
 			e.printStackTrace();
