@@ -32,7 +32,7 @@ public class ImagePrinter{
 		
 		
         JFrame frame = new JFrame("AudioReader");
-        System.out.println("Number of points: " + points.size());
+        //System.out.println("Number of points: " + points.size());
         DrawPane panel = null;
         if(points.size() < 1000){
         	 panel = new DrawPane(300, 150, pixels);
@@ -54,7 +54,7 @@ public class ImagePrinter{
         int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
         int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
         frame.setLocation(x, y);
-        System.out.println("Location set to " + x + ", " + y);
+        //System.out.println("Location set to " + x + ", " + y);
         
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

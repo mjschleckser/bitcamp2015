@@ -92,7 +92,7 @@ public class AudioReader {
     		count++;
     	}
     	
-    	System.out.println("Total number of bytes read: " + count);
+    	//System.out.println("Total number of bytes read: " + count);
 
     	ImagePrinter ip = new ImagePrinter(points);
     	
