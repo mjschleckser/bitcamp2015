@@ -1,0 +1,4 @@
+1. For amplitude/color: Pick a color for the background based on something about the music clip (tempo? most used pitch?). 
+  Then make another layer over it with an actual song, and change the apocaity based on the amplitude. It'll make everything
+  look more unified :D
+2. 
