@@ -14,7 +14,9 @@ public class ImagePrinter{
 		//The below for loop is currently being tested on RED only
 		for(int i = 0; i < points.size(); i+=1){
 			float[] hsv = new float[3];
-			Color.RGBtoHSB(points.get(i).wavelength * 5, 0, 0, hsv);
+			int wl= points.get(i).wavelength; 
+			Color color= new Color(wl); 
+			Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), hsv);
 			hsv[1] = (float)(((points.get(i).amplitude-30) * 5) * 0.01);
 			if (hsv[1] > 1){
 				hsv[1] = 1;
