@@ -18,7 +18,7 @@ public class ImagePrinter{
 		for(int i = 0; i < points.size(); i+=1){
 			float[] hsv = new float[3];
 			int wl= points.get(i).wavelength; 
-			Color color= new Color(wl); 
+			Color color= new Color(wl%23); 
 			Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), hsv);
 			hsv[1] = (float)(((points.get(i).amplitude-30) * 5) * 0.01);
 			if (hsv[1] > 1){
@@ -26,6 +26,7 @@ public class ImagePrinter{
 			} else if (hsv[1] < 0){
 				hsv[1] = 0;
 			}
+			hsv[2]=1; 
 			pixels.add(new Color(Color.HSBtoRGB(hsv[0], hsv[1], hsv[2])));
 		}
 		
