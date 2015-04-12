@@ -5,6 +5,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * @author Orlando Selenu
+ * Used with permission from the author.
  */
 public class FFTbase {
     /**

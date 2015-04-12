@@ -33,7 +33,7 @@ public class AudioReader {
     public ArrayList<SamplePoint> read() throws IOException{
     	/* Bytes are from -128 to 127 */
     	int maxBytes = audioInputStream.available();
-    	int bytesPerSample = 32;
+    	int bytesPerSample = 128;
     	long mean = 0, count = 0;
     	byte[] bytes = new byte[maxBytes];
 
@@ -91,7 +91,6 @@ public class AudioReader {
     		count++;
     	}
     	
-    	System.out.println();
     	System.out.println("Total number of bytes read: " + count);
 
     	ImagePrinter ip = new ImagePrinter(points);
@@ -108,7 +107,7 @@ public class AudioReader {
     {
     	try 
     	{
-			AudioReader ar = new AudioReader(new File("C note.wav"));
+			AudioReader ar = new AudioReader(new File("anaconda.wav"));
 			ar.read();	
 		} catch (UnsupportedAudioFileException | IOException e) {
 			e.printStackTrace();
