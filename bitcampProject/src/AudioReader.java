@@ -33,7 +33,7 @@ public class AudioReader {
     public ArrayList<SamplePoint> read() throws IOException{
     	/* Bytes are from -128 to 127 */
     	int maxBytes = audioInputStream.available();
-    	int bytesPerSample = 128;
+    	int bytesPerSample = 32;
     	long mean = 0, count = 0;
     	byte[] bytes = new byte[maxBytes];
 
@@ -74,8 +74,11 @@ public class AudioReader {
     	    	}
     	    	
     	    	double frequency = max_index * this.sampleRate / reals.length;
-    			// freq = wl / time
+    	    	
+    	    	// Comment one of these two lines.
     			sp.wavelength = (int) (frequency * bytesPerSample);
+//    	    	sp.wavelength = (int) frequency;
+    			
     			// END OF FFT BULLSHIT CODE
     			
     			points.add(sp);
@@ -105,7 +108,7 @@ public class AudioReader {
     {
     	try 
     	{
-			AudioReader ar = new AudioReader(new File("anaconda.wav"));
+			AudioReader ar = new AudioReader(new File("C note.wav"));
 			ar.read();	
 		} catch (UnsupportedAudioFileException | IOException e) {
 			e.printStackTrace();
