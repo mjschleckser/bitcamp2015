@@ -23,7 +23,6 @@ public class ImagePrinter{
 			} else if (hsv[1] < 0){
 				hsv[1] = 0;
 			}
-			System.out.println("Wavelength: " + points.get(i).wavelength );
 			pixels.add(new Color(Color.HSBtoRGB(hsv[0], hsv[1], hsv[2])));
 		}
 		
