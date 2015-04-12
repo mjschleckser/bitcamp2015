@@ -14,14 +14,20 @@ public class AudioReader {
 	
 	private AudioInputStream audioInputStream;
     private AudioFormat format;
+    private float sampleRate;
 	
     public AudioReader(File file) throws UnsupportedAudioFileException, IOException{
         audioInputStream = AudioSystem.getAudioInputStream(file);
         format = audioInputStream.getFormat();
+        sampleRate = format.getSampleRate();
     }
     
     public AudioFormat getFormat() {
         return format;
+    }
+    
+    public float getSampleRate() {
+    	return sampleRate;
     }
 
     public ArrayList<SamplePoint> read() throws IOException{

@@ -132,9 +132,16 @@ public class FFTbase {
     	
     	double[] results = fft(nums, complex, true);
     	
-    	for(double d: results){
-    		System.out.println(d);
+    	double max_magnitude = 0;
+    	int max_index = 0;
+    	for(int i = 0; i < results.length-1; i+=2){
+    		if(Math.sqrt(results[i]*results[i] + results[i+1]*results[i+1]) > max_magnitude){
+    			max_index = i;
+    			max_magnitude = Math.sqrt(results[i]*results[i] + results[i+1]*results[i+1]);
+    		}
     	}
+    	
+    	System.out.println("Frequency: " + results[max_index]);
     	
     }
 }
